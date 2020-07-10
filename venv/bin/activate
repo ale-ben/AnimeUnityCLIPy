@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/alessandrobenetton/Documents/Coding/Python/AnimeUnityCLI/venv"
+VIRTUAL_ENV="/Users/alessandrobenetton/Documents/Coding/Python/AnimeUnityCLIPy/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
