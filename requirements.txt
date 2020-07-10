@@ -1,0 +1,11 @@
+beautifulsoup4==4.9.1
+certifi==2020.6.20
+chardet==3.0.4
+cloudscraper==1.2.42
+colorama==0.4.3
+idna==2.10
+pyparsing==2.4.7
+requests==2.24.0
+requests-toolbelt==0.9.1
+soupsieve==2.0.1
+urllib3==1.25.9
