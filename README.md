@@ -1,4 +1,4 @@
-AnimeUnityCLIPY
+AnimeUnityCLIPy
 
 # Installation
 ## Install virtualenv
