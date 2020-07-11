@@ -1,6 +1,9 @@
 import json
 
+import logging_aux
 
+
+@logging_aux.logger_wraps()
 def replace_characters(json_string):
     forbidden_chars = [{'old': '\n', 'new': '\u2424'}, {'old': '\/', 'new': '/'}]
     for char in forbidden_chars:
@@ -8,12 +11,14 @@ def replace_characters(json_string):
     return json_string
 
 
+@logging_aux.logger_wraps()
 def decode_json(json_str):
     json_str = replace_characters(json_str)
     obj_arr = json.loads(json_str)
     return obj_arr
 
 
+@logging_aux.logger_wraps()
 def encode_json(res_obj):
     json_str = json.dumps(res_obj)
     return json_str

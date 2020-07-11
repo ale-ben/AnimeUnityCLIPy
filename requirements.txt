@@ -4,6 +4,7 @@ chardet==3.0.4
 cloudscraper==1.2.42
 colorama==0.4.3
 idna==2.10
+loguru==0.5.1
 pyparsing==2.4.7
 requests==2.24.0
 requests-toolbelt==0.9.1
