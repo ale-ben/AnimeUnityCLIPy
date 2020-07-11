@@ -1,6 +1,5 @@
 import colorama
 
-
 def print_search_results(search_res):
     colorama.init()
     for res in search_res:
