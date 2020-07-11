@@ -41,7 +41,8 @@ def main():
     if not no_print:
         printer.print_selected_anime_episodes(selected)
 
-    jdownloader.send_to_jdownloader([selected], crawl_path=crawl_path, jdownload_path=download_path)
+    if crawl_path is not None and download_path is not None:
+        jdownloader.send_to_jdownloader([selected], crawl_path=crawl_path, jdownload_path=download_path)
 
 
 @logging_aux.logger_wraps()
