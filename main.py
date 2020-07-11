@@ -12,7 +12,8 @@ import jdownloader
 
 crawl_path = None
 download_path = None
-no_print=False
+no_print = False
+season = None
 
 
 @logging_aux.logger_wraps()
@@ -23,24 +24,23 @@ def main():
     else:
         keyword = cli_mode()
     logger.debug("Keyword selected: {}".format(keyword))
-    anime_json = scraper.search(title=keyword)
-    logger.debug("search json: {}".format(anime_json))
-    search_res = res_obj_manipulator.get_formatted_search_results(json_parser.decode_json(anime_json))
+    search_res = scraper.search(title=keyword)
     logger.debug("search results: {}".format(search_res))
     if not search_res:
         print(f"{colorama.Fore.RED}No Anime Found{colorama.Style.RESET_ALL}")
         logger.debug("No anime found, keyword: {}".format(keyword))
         exit(1)
     logger.debug("Printing anime list")
-    printer.print_search_results(res_obj_manipulator.order_search_res(search_res))
+    printer.print_anime_list(search_res, 1)
     anime_id = input("ID: ")
     logger.debug("ID selected: {}".format(anime_id))
     selected = res_obj_manipulator.get_selected_anime_obj_by_id(search_res, anime_id)
     logger.debug("Anime selected: {}".format(selected))
     logger.debug("Printing anime episodes")
+    if season is not None:
+        selected = scraper.season_scraper(selected, season)
     if not no_print:
-        printer.print_selected_anime_episodes(selected)
-
+        printer.print_anime_list(selected, 2)
     if crawl_path is not None and download_path is not None:
         jdownloader.send_to_jdownloader([selected], crawl_path=crawl_path, jdownload_path=download_path)
 
@@ -51,11 +51,12 @@ def cli_mode():
     global crawl_path
     global download_path
     global no_print
+    global season
 
     argv = sys.argv[1:]
 
     try:
-        opts, args = getopt.getopt(argv, 'k:jdp:', ['no_print', 'keyword=', 'crawlpath=', 'jdownloadpath='])
+        opts, args = getopt.getopt(argv, 'k:jdp:', ['no_print', 'keyword=', 'crawlpath=', 'jdownloadpath=', 'season='])
     except getopt.GetoptError:
         # stampa l'informazione di aiuto ed esce:
         # usage()
@@ -69,7 +70,10 @@ def cli_mode():
             crawl_path = arg
         if opt in ['--noprint']:
             no_print = True
-
+        if opt in ['--season']:
+            season = []
+            for elem in str.split(arg, ','):
+                season.append(elem)
     return keyword
 
 
