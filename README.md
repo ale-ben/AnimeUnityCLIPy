@@ -1,3 +1,6 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/ale-ben/animeunityclipy/badge)](https://www.codefactor.io/repository/github/ale-ben/animeunityclipy)
+
+
 AnimeUnityCLIPy
 
 # Installation
