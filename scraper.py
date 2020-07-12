@@ -8,6 +8,7 @@ import json_parser
 
 file_log = False
 base_path = Path('./doc/templates')
+defined_anime_types = ['TV','OVA','ONA','Movie','Special']
 
 
 @logging_aux.logger_wraps()
@@ -78,9 +79,6 @@ def season_scraper(anime, season=None):
             anime_url.append(el['href'])
         for url in anime_url:
             anime_elem = anime_page_scraper(url)
-            if ('ALL' in season) or ('OVA' in season and anime_elem['type'] == 'OVA') or (
-                    'ONA' in season and anime_elem['type'] == 'ONA') or (
-                    'Movie' in season and anime_elem['type'] == 'Movie') or (
-                    'Special' in season and anime_elem['type'] == 'Special'):
+            if ('ALL' in season) or (anime_elem['type'] in season):
                 anime_list.append(anime_elem)
         return anime_list

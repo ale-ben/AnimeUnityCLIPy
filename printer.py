@@ -3,13 +3,18 @@ import colorama
 import logging_aux
 
 
+"""
+Print mode levels:
+1) Print only anime info
+2) Print 1 and episode list
+"""
 @logging_aux.logger_wraps()
-def print_anime_list(search_res, lev=1):
+def print_anime_list(search_res, config, print_mode):
     colorama.init()
     if not isinstance(search_res, type([])):
         search_res = [search_res]
     for res in search_res:
-        if lev >= 1:
+        if print_mode >= 1 and config['print_level'] >= 1:
             title = f"{colorama.Fore.BLUE} {str(res['id'])}"
             if res['type'] != 'TV':
                 title = f"{title} {colorama.Fore.CYAN} {res['type']}"
@@ -19,7 +24,7 @@ def print_anime_list(search_res, lev=1):
             print(title)
             print(
                 f"year: {res['date']}\t Episodes: {res['episodes_count']}\t Episode length: {res['episodes_length']} minutes")
-        if lev >= 2:
+        if print_mode >= 2 and config['print_level'] >= 2:
             print("Episodes: ")
             for episode in res['episodes']:
                 print(episode['link'])

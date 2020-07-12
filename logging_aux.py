@@ -2,6 +2,8 @@ import functools
 from loguru import logger
 import sys
 
+defined_log_levels = ['TRACE', 'DEBUG', 'INFO', 'SUCCESS', 'WARNING', 'ERROR', 'CRITICAL']
+
 
 def init_logger(level='NOLOG', backtrace=False, diagnose=False, file_log=False, file_log_level="WARNING"):
     logger.remove()

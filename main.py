@@ -10,15 +10,13 @@ import printer
 import logging_aux
 import jdownloader
 
-crawl_path = None
-download_path = None
-no_print = False
-season = None
+config = {'crawl_path': None, 'download_path': None, 'print_level': 9, 'season': [], 'log_level': 'WARNING', 'file_log':False}
+version = "v1.0"
 
 
 @logging_aux.logger_wraps()
 def main():
-    logging_aux.init_logger(level="INFO", file_log=True)
+    logging_aux.init_logger(level=config['log_level'], file_log=config['file_log'])
     if len(sys.argv) == 1:
         keyword = interactive_mode()
     else:
@@ -31,49 +29,65 @@ def main():
         logger.debug("No anime found, keyword: {}".format(keyword))
         exit(1)
     logger.debug("Printing anime list")
-    printer.print_anime_list(search_res, 1)
+    printer.print_anime_list(search_res, config, 1)
     anime_id = input("ID: ")
     logger.debug("ID selected: {}".format(anime_id))
     selected = res_obj_manipulator.get_selected_anime_obj_by_id(search_res, anime_id)
     logger.debug("Anime selected: {}".format(selected))
     logger.debug("Printing anime episodes")
-    if season is not None:
-        selected = scraper.season_scraper(selected, season)
-    if not no_print:
-        printer.print_anime_list(selected, 2)
-    if crawl_path is not None and download_path is not None:
-        jdownloader.send_to_jdownloader([selected], crawl_path=crawl_path, jdownload_path=download_path)
+    if config['season'] is not None:
+        selected = scraper.season_scraper(selected, config)
+    if not config['no_print']:
+        printer.print_anime_list(selected, config, 2)
+    if config['crawl_path'] is not None and config['download_path'] is not None:
+        jdownloader.send_to_jdownloader([selected], config)
 
 
 @logging_aux.logger_wraps()
 def cli_mode():
     keyword = None
-    global crawl_path
-    global download_path
-    global no_print
-    global season
+    global config
 
     argv = sys.argv[1:]
 
     try:
-        opts, args = getopt.getopt(argv, 'k:jdp:', ['no_print', 'keyword=', 'crawlpath=', 'jdownloadpath=', 'season='])
+        opts, args = getopt.getopt(argv, 'k:s:p:hv',
+                                   ['printlevel=', 'keyword=', 'crawlpath=', 'jdownloadpath=', 'season=', 'loglevel=','help','version', 'filelog'])
     except getopt.GetoptError:
         # stampa l'informazione di aiuto ed esce:
-        # usage()
+        usage()
         sys.exit(2)
     for opt, arg in opts:
         if opt in ['-k', '--keyword']:
             keyword = arg
-        if opt in ['-jdp', '--jdownloadpath']:
-            download_path = arg
+        if opt in ['--jdownloadpath']:
+            config['download_path'] = arg
         if opt in ['--crawlpath']:
-            crawl_path = arg
-        if opt in ['--noprint']:
-            no_print = True
-        if opt in ['--season']:
-            season = []
+            config['crawl_path'] = arg
+        if opt in ['-p', '--printlevel']:
+            config['print_level'] = int(arg)
+        if opt in ['-s', '--season']:
+            config['season'] = []
             for elem in str.split(arg, ','):
-                season.append(elem)
+                config['season'].append(elem)
+        if opt in ['--loglevel']:
+            if arg in logging_aux.defined_log_levels:
+                config['loglevel'] = arg
+            else:
+                logger.warning(
+                    f"Log level '{arg}' not valid.\nValid log levels are {logging_aux.defined_log_levels}.\nSetting log level to {config['loglevel']}")
+        if opt in ['-h', '--help']:
+            usage()
+            sys.exit(0)
+        if opt in ['-v', '--version']:
+            print(f"AnimeUnityCLIPy {version}")
+            sys.exit(0)
+        if opt in ['--filelog']:
+            config['file_log'] = True
+
+    if keyword is None:
+        logger.warning("No keyword selected")
+        sys.exit(1)
     return keyword
 
 
@@ -81,6 +95,20 @@ def cli_mode():
 def interactive_mode():
     keyword = input("Keyword: ")
     return keyword
+
+
+def usage():
+    usage = f"AnimeUnityCLIPy {version} Usage:\n" \
+            f"\t-k, --keyword (str):\t\tSpecify the keyword to search\n" \
+            f"\t-p, --printlevel (int):\t\tSpecify the print level (1: title only, 2: title and info, 3: title,info and episodes,...)\n" \
+            f"\t-s, --season (str):\t\tSpecify what to look for ({scraper.defined_anime_types.append('ALL')}), Multiple options can be selected (TV,Movie)\n" \
+            f"\t--loglevel (str):\t\tLog level -.- One of these options: {logging_aux.defined_log_levels}\n" \
+            f"\t--filelog: \t\t\tSave log > warning to a file" \
+            f"\t--jdownloadpath (Path):\t\tDestination folder for the anime dir. MUST be used in conjunction with --crawlpath\n" \
+            f"\t--crawlpath (Path):\t\tDestination folder for the crawljobs. MUST be used in conjunction with -jdp\n" \
+            f"\t-h, --help:\t\t\tShow this screen\n" \
+            f"\t-v, --version:\t\t\tPrint software version\n"
+    print(usage)
 
 
 if __name__ == "__main__":
