@@ -5,7 +5,7 @@ import logging_aux
 
 @logging_aux.logger_wraps()
 def replace_characters(json_string):
-    forbidden_chars = [{'old': '\n', 'new': '\u2424'}, {'old': '\/', 'new': '/'}]
+    forbidden_chars = [{'old': '\n', 'new': '\u2424'}, {'old': '\/', 'new': '/'}, {'old': '\'', 'new': '%27'}]
     for char in forbidden_chars:
         json_string = str.replace(json_string, char['old'], char['new'])
     return json_string
