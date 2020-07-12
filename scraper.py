@@ -19,17 +19,20 @@ def search(title="false", type="false", year="false", order="false", status="fal
                "offset": offset}
 
     page = scraper.get("https://animeunity.it/archivio", params=payload)
-    with open(f'{base_path / "search_scraped"}.html', 'w') as f:
-        f.write(page.text)
-        f.close()
+    if file_log:
+        with open(f'{base_path / "search_scraped"}.html', 'w') as f:
+            f.write(page.text)
+            f.close()
     soup = BeautifulSoup(page.content, 'html.parser')
-    with open(f'{base_path / "search_souped"}.html', 'w') as f:
-        f.write(soup.prettify())
-        f.close()
+    if file_log:
+        with open(f'{base_path / "search_souped"}.html', 'w') as f:
+            f.write(soup.prettify())
+            f.close()
     anime_json = soup.find('archivio')['records']
-    with open(f'{base_path / "search_result"}.json', 'w') as f:
-        f.write(anime_json)
-        f.close()
+    if file_log:
+        with open(f'{base_path / "search_result"}.json', 'w') as f:
+            f.write(anime_json)
+            f.close()
     search_obj = res_obj_manipulator.order_search_res(
         res_obj_manipulator.get_formatted_search_results(json_parser.decode_json(anime_json)))
     if file_log:
