@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1ac19cc812c744c29ba9579a806f1476)](https://app.codacy.com/manual/ale-ben/AnimeUnityCLIPy?utm_source=github.com&utm_medium=referral&utm_content=ale-ben/AnimeUnityCLIPy&utm_campaign=Badge_Grade_Dashboard)
 [![CodeFactor](https://www.codefactor.io/repository/github/ale-ben/animeunityclipy/badge)](https://www.codefactor.io/repository/github/ale-ben/animeunityclipy)
 
 
