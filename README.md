@@ -1,6 +1,5 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1ac19cc812c744c29ba9579a806f1476)](https://app.codacy.com/manual/ale-ben/AnimeUnityCLIPy?utm_source=github.com&utm_medium=referral&utm_content=ale-ben/AnimeUnityCLIPy&utm_campaign=Badge_Grade_Dashboard)
-[![CodeFactor](https://www.codefactor.io/repository/github/ale-ben/animeunityclipy/badge)](https://www.codefactor.io/repository/github/ale-ben/animeunityclipy)
-
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d7a27a9c98cb477887b11a79ea829a4e)](https://www.codacy.com/manual/ale-ben/AnimeUnityEnginePy?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ale-ben/AnimeUnityEnginePy&amp;utm_campaign=Badge_Grade)
+[![CodeFactor](https://www.codefactor.io/repository/github/ale-ben/animeunityenginepy/badge)](https://www.codefactor.io/repository/github/ale-ben/animeunityenginepy)
 
 AnimeUnityCLIPy
 
