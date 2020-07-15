@@ -22,6 +22,25 @@ class Episode:
         return self.link
 
 
+class Related:
+    a_id = None
+    type = None
+    title = None
+    slug = None
+
+    def __init__(self, a_id, type, title, slug):
+        self.a_id = a_id
+        self.type = type
+        self.title = title
+        self.slug = slug
+
+    def __repr__(self):
+        return f"{self.a_id}-{self.title}"
+
+    def get_anime_url(self):
+        return f"https://animeunity.it/anime/{self.a_id}-{self.slug}"
+
+
 class Anime:
     a_id = None
     title = None
@@ -34,6 +53,7 @@ class Anime:
     year = None
     episodes = []
     episodes_length = None
+    related = []
 
     def __init__(self, a_id, title, type, episodes_length):
         logger.debug(f"Creating Anime obj (id: {a_id}, num: {title})")
@@ -56,4 +76,4 @@ class Anime:
         return f"{title} {colorama.Fore.GREEN} {self.title}{('{} ({})'.format(colorama.Fore.CYAN, self.title_eng), '')[self.title_eng is None]} {colorama.Style.RESET_ALL}"
 
     def get_anime_url(self):
-        return f"{self.a_id}-{self.slug}"
+        return f"https://animeunity.it/anime/{self.a_id}-{self.slug}"

@@ -23,8 +23,11 @@ def get_formatted_search_results(res_obj):
             # Aggiungo episodio alla lista dell'anime
             anime.episodes.append(episode)
         # Aggiungo anime alla lista
+        if 'related' in anime_ob:
+            for rel in anime_ob['related']:
+                anime.related.append(common_classes.Related(rel['id'], rel['type'], rel['title'], rel['slug']))
         anime_arr.append(anime)
-    return anime_arr
+    return order_search_res(anime_arr)
 
 
 # Cerco anime per id
