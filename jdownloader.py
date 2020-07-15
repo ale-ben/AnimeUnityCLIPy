@@ -1,8 +1,6 @@
 from pathlib import Path
 
-import logging_aux
-
-
+from AnimeUnityEngine import logging_aux
 
 
 @logging_aux.logger_wraps()

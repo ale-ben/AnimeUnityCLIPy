@@ -2,9 +2,8 @@ import cloudscraper
 from bs4 import BeautifulSoup
 from pathlib import Path
 
-import logging_aux
-import res_obj_manipulator
-import json_parser
+from AnimeUnityEngine import logging_aux, res_obj_manipulator, json_parser
+
 
 file_log = False
 base_path = Path('./doc/templates')
