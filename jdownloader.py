@@ -17,7 +17,7 @@ def format_title(old_title):
 
 
 @logging_aux.logger_wraps()
-def create_crawl_file(anime_page, config, season):
+def create_crawl_file(anime_page, config, anime_path, season):
     file_content = ""
 
     # Creo la cartella in base alla stagione
@@ -25,7 +25,7 @@ def create_crawl_file(anime_page, config, season):
     crawl_file = Path(config['crawl_path']) / formatted_anime_title
 
     # Creating the AnimeDir
-    jdownloader_anime_path = Path(config['download_path']) / f"Season_{str(season)}"
+    jdownloader_anime_path = Path(anime_path) / f"Season_{str(season)}"
 
     for ep in anime_page.episodes:
         file_content = file_content + "{\n"
@@ -44,7 +44,6 @@ def create_crawl_file(anime_page, config, season):
 @logging_aux.logger_wraps()
 def send_to_jdownloader(anime_page_list, config):
     # Creo il path dell'anime in base al nome della prima stagione
-    print(anime_page_list)
     formatted_title = format_title(anime_page_list[0].slug)
     jdownload_path = Path(config['download_path']) / formatted_title
 
@@ -53,6 +52,6 @@ def send_to_jdownloader(anime_page_list, config):
     for anime in anime_page_list:
         if anime.type == 'TV':
             season_num = season_num + 1
-            create_crawl_file(anime, config, season_num)
+            create_crawl_file(anime, config, jdownload_path, season_num)
         else:
-            create_crawl_file(anime, config, 0)
+            create_crawl_file(anime, config, jdownload_path, 0)

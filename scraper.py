@@ -90,7 +90,6 @@ def season_scraper(anime, config=None):
 
         anime = anime_page_scraper(anime.get_anime_url())
 
-        print(config['season'])
         anime_list = []
         # Se l'anime è del tipo specificato lo appendo
         if ('ALL' in config['season']) or (anime.type in config['season']):
