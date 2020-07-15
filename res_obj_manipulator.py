@@ -5,11 +5,12 @@ import json
 @logging_aux.logger_wraps()
 def get_formatted_search_results(res_obj):
     # Per comodità se non è un array lo trasformo in array
-    if not isinstance(search_res, type([])):
+    if not isinstance(res_obj, type([])):
         res_obj = [res_obj]
     anime_arr = []
     for anime_ob in res_obj:
         # Creo oggetto anime e assegno i campi
+        anime = None
         anime = common_classes.Anime(anime_ob['id'], anime_ob['title'], anime_ob['type'], anime_ob['episodes_length'])
         anime.status = anime_ob['status']
         anime.year = anime_ob['date']
@@ -17,13 +18,16 @@ def get_formatted_search_results(res_obj):
         anime.title_eng = anime_ob['title_eng']
         anime.cover_image = anime_ob['imageurl_cover']
         anime.thumbnail = anime_ob['imageurl']
+        anime.episodes = []
         for ep in anime_ob['episodes']:
             # Creo oggetto episodio e assegno campi
+            episode = None
             episode = common_classes.Episode(ep['id'], ep['number'], ep['created_at'], ep['link'])
             # Aggiungo episodio alla lista dell'anime
             anime.episodes.append(episode)
         # Aggiungo anime alla lista
         if 'related' in anime_ob:
+            anime.related = []
             for rel in anime_ob['related']:
                 anime.related.append(common_classes.Related(rel['id'], rel['type'], rel['title'], rel['slug']))
         anime_arr.append(anime)

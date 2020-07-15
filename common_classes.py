@@ -51,9 +51,9 @@ class Anime:
     type = None
     slug = None
     year = None
-    episodes = []
+    episodes = None
     episodes_length = None
-    related = []
+    related = None
 
     def __init__(self, a_id, title, type, episodes_length):
         logger.debug(f"Creating Anime obj (id: {a_id}, num: {title})")

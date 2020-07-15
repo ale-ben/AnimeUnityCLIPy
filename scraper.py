@@ -82,22 +82,27 @@ def anime_page_scraper(url):
     return anime_obj[0]
 
 
-def season_scraper(anime, season=None):
-    if season is not None:
+def season_scraper(anime, config=None):
+    if config['season'] is not None:
         # Per comodità converto l'array in elemento
         if not isinstance(anime, common_classes.Anime):
             anime = anime[0]
 
         anime = anime_page_scraper(anime.get_anime_url())
 
+        print(config['season'])
         anime_list = []
         # Se l'anime è del tipo specificato lo appendo
-        if ('ALL' in season) or (anime['type'] in season):
+        if ('ALL' in config['season']) or (anime.type in config['season']):
             anime_list.append(anime)
 
         for rel in anime.related:
+            # Tra i related c'è spesso anche l'anime di partenza
+            if rel.a_id == anime.a_id:
+                continue
             # Se l'anime è del tipo specificato lo appendo
-            if ('ALL' in season) or (rel.type in season):
+            if ('ALL' in config['season']) or (rel.type in config['season']):
                 anime_elem = anime_page_scraper(rel.get_anime_url())
                 anime_list.append(anime_elem)
+        print(anime_list)
         return anime_list

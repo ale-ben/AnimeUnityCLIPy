@@ -15,6 +15,10 @@ def init_logger(level='NOLOG', backtrace=False, diagnose=False, file_log=False, 
                        diagnose=diagnose, rotation="1 day", retention="7 days", compression="zip")
 
 
+def log_anime_info(anime,msg=""):
+    logger.debug(f"{msg} {anime.a_id}, {anime.title}, {anime.slug}, {anime.type}, {anime.episodes_length}")
+
+
 def logger_wraps(*, entry=True, exit=True, level="TRACE"):
     def wrapper(func):
         name = func.__name__
