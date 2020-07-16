@@ -13,7 +13,7 @@ class Episode:
     link = None
 
     def __init__(self, e_id, num, air_date, link):
-        """ Episode class
+        """Episode class.
 
         Keyword arguments:
         e_id -- episode id
@@ -45,8 +45,7 @@ class Related:
     slug = None
 
     def __init__(self, a_id, a_type, title, slug):
-        """
-        Anime related class initializer.
+        """Anime related class initializer.
 
         Keyword arguments:
         a_id -- Anime id
@@ -85,8 +84,7 @@ class Anime:
     related = None
 
     def __init__(self, a_id, title, a_type, episodes_length):
-        """
-        Anime class initializer.
+        """Anime class initializer.
 
         Keyword arguments:
         a_id -- Anime id
