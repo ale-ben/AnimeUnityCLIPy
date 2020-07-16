@@ -1,5 +1,6 @@
 
-"""Interazione con AnimeUnity e manipolazione dati
+"""
+Interazione con AnimeUnity e manipolazione dati
 
 Modules:
 common_classes -- classi usate per creare vari oggetti (Anime, Episodi, ...)

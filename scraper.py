@@ -10,9 +10,9 @@ defined_anime_types = ['TV', 'OVA', 'ONA', 'Movie', 'Special']
 
 
 @logging_aux.logger_wraps()
-def search(title="false", type="false", year="false", order="false", status="false", genres="false", offset=0):
+def search(title="false", a_type="false", year="false", order="false", status="false", genres="false", offset=0):
     scraper = cloudscraper.create_scraper()  # returns a CloudScraper instance
-    payload = {"title": title, "type": type, "year": year, "order": order, "status": status, "genres": genres,
+    payload = {"title": title, "type": a_type, "year": year, "order": order, "status": status, "genres": genres,
                "offset": offset}
 
     page = scraper.get("https://animeunity.it/archivio", params=payload)
