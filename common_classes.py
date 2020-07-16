@@ -9,8 +9,7 @@ class Episode:
     link = None
 
     def __init__(self, e_id, num, air_date, link):
-        """
-        Episode class
+        """ Episode class
 
         Keyword arguments:
         e_id -- episode id
