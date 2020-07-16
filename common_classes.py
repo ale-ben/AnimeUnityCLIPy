@@ -1,8 +1,12 @@
+"""Common classes."""
+
 from loguru import logger
 import colorama
 
 
 class Episode:
+    """Episode class."""
+
     e_id = None
     num = None
     air_date = None
@@ -10,7 +14,7 @@ class Episode:
 
     def __init__(self, e_id, num, air_date, link):
         """
-        Episode class
+        Episode class initializer.
 
         Keyword arguments:
         e_id -- episode id
@@ -34,6 +38,8 @@ class Episode:
 
 
 class Related:
+    """Anime related class."""
+
     a_id = None
     a_type = None
     title = None
@@ -41,7 +47,7 @@ class Related:
 
     def __init__(self, a_id, a_type, title, slug):
         """
-        Anime related class
+        Anime related class initializer.
 
         Keyword arguments:
         a_id -- Anime id
@@ -59,10 +65,13 @@ class Related:
         return f"{self.a_id}-{self.title}"
 
     def get_anime_url(self):
+        """Combine the anime id and the slug to get the URL."""
         return f"https://animeunity.it/anime/{self.a_id}-{self.slug}"
 
 
 class Anime:
+    """Anime class."""
+
     a_id = None
     title = None
     title_eng = None
@@ -78,7 +87,7 @@ class Anime:
 
     def __init__(self, a_id, title, a_type, episodes_length):
         """
-        Anime class
+        Anime class initializer.
 
         Keyword arguments:
         a_id -- Anime id
@@ -108,4 +117,5 @@ class Anime:
         return f"{title} {colorama.Fore.GREEN} {self.title}{('{} ({})'.format(colorama.Fore.CYAN, self.title_eng), '')[self.title_eng is None]} {colorama.Style.RESET_ALL}"
 
     def get_anime_url(self):
+        """Combine the anime id and the slug to get the URL."""
         return f"https://animeunity.it/anime/{self.a_id}-{self.slug}"
