@@ -9,6 +9,7 @@ class Episode:
     link = None
 
     def __init__(self, e_id, num, air_date, link):
+
         """Episode class
 
         Keyword arguments:
@@ -24,11 +25,11 @@ class Episode:
         self.link = link
 
     def __repr__(self):
-        """Rappresentazione di un episodio: episode id-episode number-air date"""
+        """Rappresentazione di un episodio: episode id-episode number-air date."""
         return f"{self.e_id}-{self.num}-{self.air_date}"
 
     def __str__(self):
-        """To string di un episodio: url"""
+        """To string di un episodio: url."""
         return self.link
 
 
@@ -39,6 +40,7 @@ class Related:
     slug = None
 
     def __init__(self, a_id, a_type, title, slug):
+
         """Anime related class
 
         Keyword arguments:
@@ -53,7 +55,7 @@ class Related:
         self.slug = slug
 
     def __repr__(self):
-        """Rappresentazione di un anime collegato: anime id-anime title"""
+        """Rappresentazione di un anime collegato: anime id-anime title."""
         return f"{self.a_id}-{self.title}"
 
     def get_anime_url(self):
@@ -75,6 +77,7 @@ class Anime:
     related = None
 
     def __init__(self, a_id, title, a_type, episodes_length):
+
         """Anime class
 
         Keyword arguments:
@@ -94,11 +97,11 @@ class Anime:
             self.a_type = a_type
 
     def __repr__(self):
-        """Rappresentazione di un anime: anime id-anime title"""
+        """Rappresentazione di un anime: anime id-anime title."""
         return f"{self.a_id}-{self.title}"
 
     def __str__(self):
-        """To String di un anime: Anime id [a_type] title"""
+        """To String di un anime: Anime id [a_type] title."""
         title = f"{colorama.Fore.BLUE} {str(self.a_id)}"
         if self.a_type != 'TV':
             title = f"{title} {colorama.Fore.CYAN} {self.a_type}"
