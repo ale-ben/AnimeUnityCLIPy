@@ -92,7 +92,7 @@ def season_scraper(anime, config=None):
 
         anime_list = []
         # Se l'anime è del tipo specificato lo appendo
-        if ('ALL' in config['season']) or (anime.type in config['season']):
+        if ('ALL' in map(str.upper, config['season'])) or (anime.type in config['season']):
             anime_list.append(anime)
 
         for rel in anime.related:
@@ -100,7 +100,7 @@ def season_scraper(anime, config=None):
             if rel.a_id == anime.a_id:
                 continue
             # Se l'anime è del tipo specificato lo appendo
-            if ('ALL' in config['season']) or (rel.type in config['season']):
+            if ('ALL' in map(str.upper, config['season'])) or (rel.type in config['season']):
                 anime_elem = anime_page_scraper(rel.get_anime_url())
                 anime_list.append(anime_elem)
         print(anime_list)
